@@ -1,0 +1,35 @@
+{
+  "updated": "2026-11-19",
+  "account": "dailyderby_horse",
+  "latestReel": "https://www.instagram.com/p/Df40W_ip_FW/",
+  "nextRace": {
+    "day": 2,
+    "date": "2026-11-20",
+    "status": "entries open",
+    "entrants": []
+  },
+  "races": [
+    {
+      "day": 1,
+      "date": "2026-11-19",
+      "kind": "launch",
+      "title": "The rules reveal",
+      "track": null,
+      "runners": 0,
+      "reel": "https://www.instagram.com/p/Df40W_ip_FW/",
+      "note": "No race run yet. The track has no name: the most-liked comment names it.",
+      "results": []
+    }
+  ],
+  "horses": [],
+  "sponsorSpots": [
+    { "id": "big-screen", "name": "The Big Screen", "where": "Neon board above the grandstand", "status": "open", "sponsor": null, "x": 25, "y": 18, "w": 50, "h": 7.5 },
+    { "id": "pavilion", "name": "Infield Pavilion", "where": "The roof in the middle of the track", "status": "open", "sponsor": null, "x": 45.5, "y": 59, "w": 9, "h": 3.2 },
+    { "id": "rail-1", "name": "Rail Banner 1", "where": "Home straight, far left", "status": "open", "sponsor": null, "x": 4, "y": 91.3, "w": 16.2, "h": 2 },
+    { "id": "rail-2", "name": "Rail Banner 2", "where": "Home straight, left", "status": "open", "sponsor": null, "x": 29.3, "y": 91.3, "w": 16.2, "h": 2 },
+    { "id": "rail-3", "name": "Rail Banner 3", "where": "Home straight, right", "status": "open", "sponsor": null, "x": 54.6, "y": 91.3, "w": 16.2, "h": 2 },
+    { "id": "rail-4", "name": "Rail Banner 4", "where": "Home straight, far right", "status": "open", "sponsor": null, "x": 79.8, "y": 91.3, "w": 16.2, "h": 2 },
+    { "id": "hall-of-fame", "name": "Hall of Fame Wall", "where": "\"Medals presented by\" plaque on the winners' wall", "status": "open", "sponsor": null },
+    { "id": "starting-gate", "name": "Starting Gate", "where": "Your name across the gates, seen at every start", "status": "open", "sponsor": null }
+  ]
+}
