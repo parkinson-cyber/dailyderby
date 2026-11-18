@@ -192,14 +192,14 @@
       <div>
         <p class="kicker">The Pixel Paddock · a race every day</p>
         <h1>Your name.<br>Your horse.<br><em>Every day.</em></h1>
-        <p class="lede">Follow <b>@dailyderby_horse</b> and comment <b>IN</b> on the latest reel. A horse runs in the next race with your @name above it. Likes on your comment make it faster.</p>
+        <p class="lede">Follow <b>@dailyderby_horse</b> and you're locked into the next race: a horse runs with your @name above it. Comment <b>IN</b> on the latest reel, and the likes on your comment make it faster.</p>
         <div class="cta-row">
           <a class="btn btn-neon" id="enterBtn" href="https://www.instagram.com/p/Df40W_ip_FW/" target="_blank" rel="noopener">Enter the next race →</a>
           <a class="btn btn-ghost" href="#find">Find my horse</a>
         </div>
         <div class="status" aria-live="polite">
           <div class="stat"><div class="v" id="sDay">—</div><div class="k">Next race</div></div>
-          <div class="stat"><div class="v" id="sEntered">—</div><div class="k">Entered so far</div></div>
+          <div class="stat"><div class="v" id="sEntered">—</div><div class="k">Locked in</div></div>
           <div class="stat"><div class="v" id="sStable">—</div><div class="k">Horses in the stable</div></div>
         </div>
       </div>
@@ -283,8 +283,8 @@
       <h2 class="px">Three steps to the gate</h2>
       <p class="sub">Free to enter. There's no betting and no money involved.</p>
       <div class="steps">
-        <div class="card step"><div class="n">01</div><h3>Follow</h3><p>Follow @dailyderby_horse. Your horse gets your @name on its tag.</p></div>
-        <div class="card step"><div class="n">02</div><h3>Comment IN</h3><p>Comment IN on the latest reel to enter the next race. The earlier you comment, the better your place in a tie.</p></div>
+        <div class="card step"><div class="n">01</div><h3>Follow</h3><p>Follow @dailyderby_horse and you're locked into the next race, with your @name on your horse's tag.</p></div>
+        <div class="card step"><div class="n">02</div><h3>Comment IN</h3><p>Comment IN on the latest reel. The earlier you comment, the better your place in a tie.</p></div>
         <div class="card step"><div class="n">03</div><h3>Get likes</h3><p>Likes on your comment raise your odds. Even the favourite usually loses, so anyone can win.</p></div>
       </div>
       <div class="odds">
@@ -299,7 +299,7 @@
 <footer>
   <div class="wrap">
     <p><b style="color:var(--ink)">Daily Derby · The Pixel Paddock</b> · a fan-made game on Instagram. Not a betting service; nothing here can be bought or wagered.</p>
-    <p>Commenting IN means you agree to your @handle appearing on a horse. Want it removed? DM <a href="https://ig.me/m/dailyderby_horse" target="_blank" rel="noopener">@dailyderby_horse</a> and it's gone.</p>
+    <p>Following means your @handle can appear on a horse. Want it removed? DM <a href="https://ig.me/m/dailyderby_horse" target="_blank" rel="noopener">@dailyderby_horse</a> and it's gone.</p>
     <p id="updated"></p>
   </div>
 </footer>
@@ -385,8 +385,8 @@
       const isIn = entrants.has(q);
       if (!h) {
         out.innerHTML = isIn
-          ? `<div class="empty"><strong>@${esc(q)} is entered for Day ${D.nextRace.day}.</strong> Your horse makes its debut in the next race. Good luck!</div>`
-          : `<div class="empty"><strong>No horse for @${esc(q)} yet.</strong> Follow @${IG} and comment <b>IN</b> on <a href="${esc(D.latestReel)}" target="_blank" rel="noopener">the latest reel</a> to enter the next race.</div>`;
+          ? `<div class="empty"><strong>@${esc(q)} is locked in for Day ${D.nextRace.day}.</strong> Your horse makes its debut in the next race. Good luck!</div>`
+          : `<div class="empty"><strong>No horse for @${esc(q)} yet.</strong> <a href="https://www.instagram.com/${IG}/" target="_blank" rel="noopener">Follow @${IG}</a> to get your horse in the next race. New followers are added once a day, so check back tomorrow if you've just followed.</div>`;
         return;
       }
       const s = stats(h);
@@ -397,7 +397,7 @@
           <h3>@${esc(h.handle)}</h3>
           <div style="color:var(--muted)">${s.races} race${s.races === 1 ? "" : "s"} · ${last}</div>
           <div class="chips">
-            ${isIn ? `<span class="chip in">Entered for Day ${D.nextRace.day}</span>` : `<span class="chip">Not entered for Day ${D.nextRace.day}: comment IN</span>`}
+            ${isIn ? `<span class="chip in">Locked in for Day ${D.nextRace.day}</span>` : `<span class="chip">Sitting out Day ${D.nextRace.day}</span>`}
             ${s.gold ? `<span class="chip"><span class="m g"></span>${s.gold} gold</span>` : ""}
             ${s.silver ? `<span class="chip"><span class="m s"></span>${s.silver} silver</span>` : ""}
             ${s.bronze ? `<span class="chip"><span class="m b"></span>${s.bronze} bronze</span>` : ""}
