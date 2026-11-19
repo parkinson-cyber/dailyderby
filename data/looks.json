@@ -1,0 +1,45 @@
+{
+  "about": "Horse looks: 4 parts x 4 options = 256 combos. A look code is 4 digits (1-4), one per part in this order, e.g. 2413. Read by index.html (builder + sprites) and by shorts-pipeline/scripts/paddock.py (race art). Each code belongs to the first follower who claims it (horses[].look in derby.json).",
+  "parts": [
+    {
+      "id": "coat",
+      "name": "Coat",
+      "options": [
+        {"name": "Bay", "rgb": [[150, 106, 72], [120, 82, 54], [78, 52, 34]]},
+        {"name": "Midnight", "rgb": [[84, 76, 92], [58, 52, 66], [34, 30, 42]]},
+        {"name": "Grey", "rgb": [[206, 206, 214], [168, 168, 180], [120, 120, 134]]},
+        {"name": "Chestnut", "rgb": [[206, 120, 58], [170, 88, 38], [120, 58, 22]]}
+      ]
+    },
+    {
+      "id": "mane",
+      "name": "Mane & tail",
+      "options": [
+        {"name": "Dark", "rgb": [[38, 26, 20]]},
+        {"name": "Blonde", "rgb": [[240, 210, 132]]},
+        {"name": "Snow", "rgb": [[244, 244, 248]]},
+        {"name": "Fire", "rgb": [[255, 92, 40]]}
+      ]
+    },
+    {
+      "id": "silks",
+      "name": "Silks",
+      "options": [
+        {"name": "Pink", "rgb": [[255, 77, 109]]},
+        {"name": "Cyan", "rgb": [[34, 224, 255]]},
+        {"name": "Lime", "rgb": [[166, 226, 46]]},
+        {"name": "Purple", "rgb": [[138, 88, 255]]}
+      ]
+    },
+    {
+      "id": "pattern",
+      "name": "Pattern",
+      "options": [
+        {"name": "Plain"},
+        {"name": "Stripe"},
+        {"name": "Star"},
+        {"name": "Checks"}
+      ]
+    }
+  ]
+}
