@@ -1,22 +1,23 @@
 {
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "account": "dailyderby_horse",
   "latestReel": "https://www.instagram.com/p/Df40W_ip_FW/",
   "nextRace": {
-    "day": 1,
-    "date": "2026-11-20",
-    "status": "field locked",
+    "day": 2,
+    "date": "2026-11-21",
+    "status": "open",
+    "obstacle": "crowd vote (poll on the Day 1 reel)",
     "entrants": [
-      "himc__",
-      "micro_facts_information",
-      "__choi_12",
-      "why_do_you_need_a_name_",
-      "e.superskyi",
       "johnsnicklefuckthe3rd",
-      "yanniss_wk",
-      "harman_saandhu",
+      "e.superskyi",
+      "why_do_you_need_a_name_",
+      "__choi_12",
+      "micro_facts_information",
+      "himc__",
+      "wilfred_2.0",
       "fei._.ka",
-      "wilfred_2.0"
+      "harman_saandhu",
+      "yanniss_wk"
     ]
   },
   "races": [
@@ -30,68 +31,158 @@
       "reel": "https://www.instagram.com/p/Df40W_ip_FW/",
       "note": "The launch reel. No race run. The track was named by @why_do_you_need_a_name_'s comment, the most-liked name (2 likes).",
       "results": []
+    },
+    {
+      "day": 1,
+      "date": "2026-11-20",
+      "kind": "race",
+      "title": "King's Warmup",
+      "track": "King's Warmup",
+      "runners": 11,
+      "laps": 3,
+      "reel": null,
+      "note": "Three laps. @e.superskyi swung wide on the final bend and won at 13%. @arabella.sk8s ran as a one-off guest on the golden horse, our thank-you for the first ever comment. The favourite finished 8th.",
+      "results": [
+        {
+          "place": 1,
+          "handle": "e.superskyi",
+          "odds": 13
+        },
+        {
+          "place": 2,
+          "handle": "arabella.sk8s",
+          "odds": 15
+        },
+        {
+          "place": 3,
+          "handle": "fei._.ka",
+          "odds": 4
+        },
+        {
+          "place": 4,
+          "handle": "__choi_12",
+          "odds": 7
+        },
+        {
+          "place": 5,
+          "handle": "johnsnicklefuckthe3rd",
+          "odds": 6
+        },
+        {
+          "place": 6,
+          "handle": "micro_facts_information",
+          "odds": 9
+        },
+        {
+          "place": 7,
+          "handle": "harman_saandhu",
+          "odds": 4
+        },
+        {
+          "place": 8,
+          "handle": "why_do_you_need_a_name_",
+          "odds": 16
+        },
+        {
+          "place": 9,
+          "handle": "himc__",
+          "odds": 10
+        },
+        {
+          "place": 10,
+          "handle": "wilfred_2.0",
+          "odds": 4
+        },
+        {
+          "place": 11,
+          "handle": "yanniss_wk",
+          "odds": 12
+        }
+      ]
     }
   ],
   "horses": [
     {
       "handle": "johnsnicklefuckthe3rd",
       "joined": "2026-11-19",
-      "races": 0,
+      "races": 1,
       "medals": []
     },
     {
       "handle": "e.superskyi",
       "joined": "2026-11-19",
-      "races": 0,
-      "medals": []
+      "races": 1,
+      "medals": [
+        {
+          "day": 1,
+          "place": 1
+        }
+      ]
     },
     {
       "handle": "why_do_you_need_a_name_",
       "joined": "2026-11-19",
-      "races": 0,
+      "races": 1,
       "medals": []
     },
     {
       "handle": "__choi_12",
       "joined": "2026-11-19",
-      "races": 0,
+      "races": 1,
       "medals": []
     },
     {
       "handle": "micro_facts_information",
       "joined": "2026-11-19",
-      "races": 0,
+      "races": 1,
       "medals": []
     },
     {
       "handle": "himc__",
       "joined": "2026-11-19",
-      "races": 0,
+      "races": 1,
       "medals": []
     },
     {
       "handle": "wilfred_2.0",
       "joined": "2026-11-19",
-      "races": 0,
+      "races": 1,
       "medals": []
     },
     {
       "handle": "fei._.ka",
       "joined": "2026-11-19",
-      "races": 0,
-      "medals": []
+      "races": 1,
+      "medals": [
+        {
+          "day": 1,
+          "place": 3
+        }
+      ]
     },
     {
       "handle": "harman_saandhu",
       "joined": "2026-11-19",
-      "races": 0,
+      "races": 1,
       "medals": []
     },
     {
       "handle": "yanniss_wk",
       "joined": "2026-11-19",
-      "races": 0,
+      "races": 1,
       "medals": []
+    },
+    {
+      "handle": "arabella.sk8s",
+      "joined": "2026-11-20",
+      "guest": true,
+      "races": 1,
+      "medals": [
+        {
+          "day": 1,
+          "place": 2
+        }
+      ]
     }
   ],
   "sponsorSpots": [
