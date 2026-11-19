@@ -7,12 +7,16 @@
     "date": "2026-11-20",
     "status": "field locked",
     "entrants": [
-      "johnsnicklefuckthe3rd",
-      "e.superskyi",
-      "why_do_you_need_a_name_",
-      "__choi_12",
+      "himc__",
       "micro_facts_information",
-      "himc__"
+      "__choi_12",
+      "why_do_you_need_a_name_",
+      "e.superskyi",
+      "johnsnicklefuckthe3rd",
+      "yanniss_wk",
+      "harman_saandhu",
+      "fei._.ka",
+      "wilfred_2.0"
     ]
   },
   "races": [
@@ -21,10 +25,10 @@
       "date": "2026-11-19",
       "kind": "launch",
       "title": "The rules reveal",
-      "track": null,
+      "track": "King's Warmup",
       "runners": 0,
       "reel": "https://www.instagram.com/p/Df40W_ip_FW/",
-      "note": "The launch reel. No race run. The track has no name yet: the most-liked comment names it.",
+      "note": "The launch reel. No race run. The track was named by @why_do_you_need_a_name_'s comment, the most-liked name (2 likes).",
       "results": []
     }
   ],
@@ -61,6 +65,30 @@
     },
     {
       "handle": "himc__",
+      "joined": "2026-11-19",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "wilfred_2.0",
+      "joined": "2026-11-19",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "fei._.ka",
+      "joined": "2026-11-19",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "harman_saandhu",
+      "joined": "2026-11-19",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "yanniss_wk",
       "joined": "2026-11-19",
       "races": 0,
       "medals": []
