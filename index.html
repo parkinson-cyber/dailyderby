@@ -386,7 +386,7 @@
       if (!h) {
         out.innerHTML = isIn
           ? `<div class="empty"><strong>@${esc(q)} is locked in for Day ${D.nextRace.day}.</strong> Your horse makes its debut in the next race. Good luck!</div>`
-          : `<div class="empty"><strong>No horse for @${esc(q)} yet.</strong> <a href="https://www.instagram.com/${IG}/" target="_blank" rel="noopener">Follow @${IG}</a> to get your horse in the next race. New followers are added once a day, so check back tomorrow if you've just followed.</div>`;
+          : `<div class="empty"><strong>No horse for @${esc(q)} yet.</strong> <a href="https://www.instagram.com/${IG}/" target="_blank" rel="noopener">Follow @${IG}</a> to get your horse in the next race. New followers are added every few hours, so check back later if you've just followed.</div>`;
         return;
       }
       const s = stats(h);
