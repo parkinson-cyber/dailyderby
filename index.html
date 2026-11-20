@@ -300,7 +300,7 @@
             <b>Almost yours. One step left:</b>
             <ol>
               <li>Comment <b class="c" id="bClaimCode">HORSE 1111</b> on any of our reels (it's copied). That proves it's you, and it counts as your boost comment too.</li>
-              <li>It locks in at the next sync with Instagram. Watch for your name under Live claims below.</li>
+              <li>Then tap <b>Check my horse</b>: once our system sees your comment it locks in, and your name shows under Live claims below.</li>
             </ol>
             <div class="save-row"><a class="btn btn-neon" id="bReel" href="#" target="_blank" rel="noopener">Open the latest reel →</a><button class="btn btn-ghost js-check" type="button">Check my horse</button></div>
           </div>
@@ -467,12 +467,30 @@
 
   const getJSON = u => fetch(u + (u.includes("?") ? "&" : "?") + "t=" + Date.now(), { cache: "no-store" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
   let OWNER = {}, LIVE = null, redrawBuilder = () => {};
-  const ownersOf = D => { const o = {}; (D.horses || []).forEach(h => { if (h.status !== "removed" && validLook(h.look)) o[h.look] = norm(h.handle); }); return o; };
+  const ownersOf = D => {
+    const o = {};
+    if (D.reserved) { Object.entries(D.reserved).forEach(([h, c]) => { if (validLook(c)) o[c] = norm(h); }); return o; }
+    (D.horses || []).forEach(h => { if (h.status !== "removed" && validLook(h.look)) o[h.look] = norm(h.handle); });
+    return o;
+  };
+  // Instant claims: when derby.json names a claims server, its live state wins over the hourly sync.
+  let API = null;
+  function mergeLive(D, W) {
+    if (!W || !W.looks) return D;
+    const looks = {}; Object.entries(W.looks).forEach(([h, c]) => looks[norm(h)] = c);
+    return { ...D, lastSync: W.lastSync, syncEveryMin: W.syncEveryMin || 1, claims: W.claims || [], reserved: looks, live: true,
+      horses: (D.horses || []).map(h => ({ ...h, look: looks[norm(h.handle)] || h.look })) };
+  }
+  const apiGet = path => fetch(API + path, { cache: "no-store" }).then(r => r.json());
+  async function loadLive(D) {
+    if (!API) return D;
+    try { return mergeLive(D, await apiGet("/state")); } catch { return D; }
+  }
   const ago = iso => { if (!iso) return ""; const m = Math.max(0, Math.round((Date.now() - new Date(iso)) / 60000)); return m < 1 ? "just now" : m < 60 ? m + " min ago" : m < 1440 ? Math.round(m / 60) + " h ago" : Math.round(m / 1440) + " d ago"; };
   function liveUpdate(D) {
     LIVE = D; OWNER = ownersOf(D);
     const every = D.syncEveryMin || 60;
-    $("#liveSync").textContent = D.lastSync ? `Synced with Instagram ${ago(D.lastSync)} · checks every ${every >= 60 ? every / 60 + " h" : every + " min"}` : "Waiting for the first sync";
+    $("#liveSync").textContent = D.live ? `Live from Instagram · updated ${ago(D.lastSync)}` : D.lastSync ? `Synced with Instagram ${ago(D.lastSync)} · checks every ${every >= 60 ? every / 60 + " h" : every + " min"}` : "Waiting for the first sync";
     const claims = (D.claims || []).slice(0, 12);
     $("#liveFeed").innerHTML = claims.length ? claims.map(c => {
       const st = c.status === "taken" ? `<span class="tag-s no">Taken</span>` : c.status === "waiting" ? `<span class="tag-s">Like or follow to lock</span>` : `<span class="tag-s ok">Locked in</span>`;
@@ -494,12 +512,12 @@
     const next = LIVE.lastSync ? new Date(new Date(LIVE.lastSync).getTime() + every * 60000) : null;
     const mins = next ? Math.max(0, Math.round((next - Date.now()) / 60000)) : null;
     const when = next ? (mins <= 1 ? "any minute now" : `in about ${mins} min`) : "soon";
-    const synced = LIVE.lastSync ? `Last synced with Instagram ${ago(LIVE.lastSync)}. Next sync ${when}.` : "Waiting for the first sync with Instagram.";
+    const synced = LIVE.live ? `Checked live with Instagram ${ago(LIVE.lastSync)}. Just commented? Tap Check my horse again in a few seconds.` : LIVE.lastSync ? `Last synced with Instagram ${ago(LIVE.lastSync)}. Next sync ${when}.` : "Waiting for the first sync with Instagram.";
     let look = h && validLook(h.look) ? h.look : null, msg;
     if (look && (!want || want === look)) msg = `<b style="color:#7dff9c">Locked in: @${esc(me)} wears HORSE ${esc(look)}.</b> It runs in this look from the next race.`;
     else if (want && OWNER[want] && OWNER[want] !== me) { msg = `<b style="color:var(--neon)">HORSE ${esc(want)} went to @${esc(OWNER[want])} first.</b> Pick another look above and comment the new code.`; }
     else if (claim && claim.look === want && claim.status === "waiting") { look = want; msg = `<b style="color:var(--gold)">We saw your HORSE ${esc(want)} comment.</b> Like any of our reels or follow to lock it in.`; }
-    else if (want) { look = want; msg = `<b style="color:var(--gold)">Not synced yet: HORSE ${esc(want)}.</b> Comment it on any of our reels if you haven't. It locks in at the next sync.`; }
+    else if (want) { look = want; msg = LIVE.live ? `<b style="color:var(--gold)">We haven't seen HORSE ${esc(want)} from @${esc(me)} yet.</b> Comment it on any of our reels, then tap Check my horse.` : `<b style="color:var(--gold)">Not synced yet: HORSE ${esc(want)}.</b> Comment it on any of our reels if you haven't. It locks in at the next sync.`; }
     else if (h) msg = `@${esc(me)} hasn't claimed a look yet. Build one above, then comment its code.`;
     else msg = `No horse for @${esc(me)} yet. Like a reel or follow to join, then claim a look.`;
     box.innerHTML = `${spriteTag(look || (h ? lookFor(h.handle) : "1111"), 84)}<div class="txt">${msg}<small>${synced}</small></div>`;
@@ -509,7 +527,11 @@
     const me = norm($("#bHandle").value);
     if (!me) { $("#bHandle").focus(); toast("Type your Instagram handle first."); return; }
     const label = btn.textContent; btn.disabled = true; btn.textContent = "Checking…";
-    try { liveUpdate(await getJSON("data/derby.json")); } catch { toast("Couldn't reach the race data. Try again."); }
+    try {
+      const D = await getJSON("data/derby.json");
+      if (API) { await apiGet("/check?handle=" + encodeURIComponent(me)).catch(() => null); }
+      liveUpdate(await loadLive(D));
+    } catch { toast("Couldn't reach the race data. Try again."); }
     myStatus();
     btn.disabled = false; btn.textContent = label;
     const box = $("#liveMine");
@@ -518,7 +540,12 @@
   }
   document.querySelectorAll(".js-check").forEach(b => b.addEventListener("click", () => checkMine(b)));
   Promise.all([getJSON("data/derby.json"), getJSON("data/looks.json").catch(() => null)])
-    .then(([D, L]) => { LOOKS = L && L.parts; render(D); liveUpdate(D); myStatus(); setInterval(() => getJSON("data/derby.json").then(D2 => { liveUpdate(D2); myStatus(); }).catch(() => {}), 60000); })
+    .then(async ([D, L]) => {
+      LOOKS = L && L.parts; API = D.claimsApi || null;
+      const D1 = await loadLive(D);
+      render(D1); liveUpdate(D1); myStatus();
+      setInterval(() => getJSON("data/derby.json").then(loadLive).then(D2 => { liveUpdate(D2); myStatus(); }).catch(() => {}), API ? 30000 : 60000);
+    })
     .catch(() => { $("#board").innerHTML = `<div class="empty">Couldn't load the race data. Try refreshing.</div>`; });
 
   function render(D) {
