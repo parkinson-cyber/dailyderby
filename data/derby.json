@@ -122,7 +122,8 @@
           "day": 1,
           "place": 1
         }
-      ]
+      ],
+      "look": "2343"
     },
     {
       "handle": "why_do_you_need_a_name_",
@@ -304,8 +305,50 @@
     }
   ],
   "syncEveryMin": 60,
-  "lastSync": "2026-11-20T14:34:19Z",
+  "lastSync": "2026-11-20T23:49:52Z",
   "claims": [
+    {
+      "handle": "krinc_prason",
+      "look": "2244",
+      "at": "2026-11-20T16:35:45Z",
+      "reel": "https://www.instagram.com/p/Df40W_ip_FW/",
+      "status": "waiting"
+    },
+    {
+      "handle": "snocin",
+      "look": "1224",
+      "at": "2026-11-20T16:01:00Z",
+      "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
+      "status": "waiting"
+    },
+    {
+      "handle": "eyad.ahmed265",
+      "look": "3342",
+      "at": "2026-11-20T15:49:56Z",
+      "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
+      "status": "waiting"
+    },
+    {
+      "handle": "_gl88k",
+      "look": "3114",
+      "at": "2026-11-20T15:27:11Z",
+      "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
+      "status": "waiting"
+    },
+    {
+      "handle": "tavianhaddox",
+      "look": "3331",
+      "at": "2026-11-20T15:11:54Z",
+      "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
+      "status": "waiting"
+    },
+    {
+      "handle": "e.superskyi",
+      "look": "2343",
+      "at": "2026-11-20T15:06:29Z",
+      "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
+      "status": "locked"
+    },
     {
       "handle": "logpackersfan2710",
       "look": "2344",
