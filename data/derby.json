@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20",
+  "updated": "2026-11-21",
   "account": "dailyderby_horse",
   "latestReel": "https://www.instagram.com/p/Df7ViuvJVZ3/",
   "nextRace": {
@@ -8,6 +8,10 @@
     "status": "open",
     "obstacle": "crowd vote (poll on the Day 1 reel)",
     "entrants": [
+      "timleahy_08",
+      "idk.drippy",
+      "amelia.wood13",
+      "wjd88888888",
       "edgar__leung",
       "wilfred_2.0",
       "fei._.ka",
@@ -188,6 +192,30 @@
     {
       "handle": "edgar__leung",
       "joined": "2026-11-20",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "timleahy_08",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "idk.drippy",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "amelia.wood13",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "wjd88888888",
+      "joined": "2026-11-21",
       "races": 0,
       "medals": []
     }
