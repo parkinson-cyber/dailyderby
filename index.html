@@ -300,9 +300,9 @@
             <b>Almost yours. One step left:</b>
             <ol>
               <li>Comment <b class="c" id="bClaimCode">HORSE 1111</b> on any of our reels (it's copied). That proves it's you, and it counts as your boost comment too.</li>
-              <li>Then tap <b>Check my horse</b>: once our system sees your comment it locks in, and your name shows under Live claims below.</li>
+              <li>Come back and tap <b>Done</b>. Your horse switches to its new look right away, and everyone else sees it once we confirm your comment (we check every hour).</li>
             </ol>
-            <div class="save-row"><a class="btn btn-neon" id="bReel" href="#" target="_blank" rel="noopener">Open the latest reel →</a><button class="btn btn-ghost js-check" type="button">Check my horse</button></div>
+            <div class="save-row"><a class="btn btn-neon" id="bReel" href="#" target="_blank" rel="noopener">Open the latest reel →</a><button class="btn btn-gold" id="bDone" type="button">Done, I commented ✓</button></div>
           </div>
           <p class="code-note" id="bCount" style="margin-top:16px"></p>
         </div>
@@ -454,7 +454,16 @@
     s.setAttribute("viewBox", "0 0 17 13"); s.setAttribute("width", w); s.setAttribute("height", Math.round(w * 13 / 17));
     s.setAttribute("aria-hidden", "true"); sprite(s, look); return s.outerHTML;
   };
-  const horseLook = h => validLook(h.look) ? h.look : lookFor(h.handle);
+  // A look the visitor claimed and tapped Done on: shown on their device right away, until the sync confirms it.
+  const savedHorse = () => { try { return JSON.parse(localStorage.getItem("dd-horse") || "{}"); } catch { return {}; } };
+  function pendingFor(handle) {
+    const sv = savedHorse(), me = norm(handle);
+    if (!sv.done || sv.handle !== me || !validLook(sv.code)) return null;
+    if (OWNER[sv.code] && OWNER[sv.code] !== me) return null;   // someone else got it first
+    return sv.code;
+  }
+  const horseLook = h => pendingFor(h.handle) || (validLook(h.look) ? h.look : lookFor(h.handle));
+  let REBOARD = () => {};
   document.querySelectorAll("svg.sprite").forEach(s => sprite(s, s.dataset.colour));
 
   const toast = msg => { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 3200); };
@@ -491,9 +500,13 @@
     LIVE = D; OWNER = ownersOf(D);
     const every = D.syncEveryMin || 60;
     $("#liveSync").textContent = D.live ? `Live from Instagram · updated ${ago(D.lastSync)}` : D.lastSync ? `Synced with Instagram ${ago(D.lastSync)} · checks every ${every >= 60 ? every / 60 + " h" : every + " min"}` : "Waiting for the first sync";
-    const claims = (D.claims || []).slice(0, 12);
+    let claims = (D.claims || []).slice(0, 12);
+    const sv = savedHorse();
+    const mineLocked = sv.done && (D.horses || []).some(h => norm(h.handle) === sv.handle && h.look === sv.code);
+    if (sv.done && validLook(sv.code) && !mineLocked && !claims.some(c => norm(c.handle) === sv.handle && c.look === sv.code))
+      claims = [{ handle: sv.handle, look: sv.code, at: sv.doneAt, status: OWNER[sv.code] && OWNER[sv.code] !== sv.handle ? "taken" : "pending" }, ...claims];
     $("#liveFeed").innerHTML = claims.length ? claims.map(c => {
-      const st = c.status === "taken" ? `<span class="tag-s no">Taken</span>` : c.status === "waiting" ? `<span class="tag-s">Like or follow to lock</span>` : `<span class="tag-s ok">Locked in</span>`;
+      const st = c.status === "taken" ? `<span class="tag-s no">Taken</span>` : c.status === "waiting" ? `<span class="tag-s">Like or follow to lock</span>` : c.status === "pending" ? `<span class="tag-s" style="color:var(--gold);border-color:#8a6510">Pending</span>` : `<span class="tag-s ok">Locked in</span>`;
       return `<div class="claim-row">${spriteTag(validLook(c.look) ? c.look : "1111", 34)}<span class="who">@${esc(c.handle)}</span><p class="code">HORSE ${esc(c.look)}</p>${st}<small class="when">${esc(ago(c.at))}</small></div>`;
     }).join("") : `<div class="empty">No claims yet. Be the first: build a horse above and comment its code.</div>`;
     redrawBuilder();
@@ -516,6 +529,7 @@
     let look = h && validLook(h.look) ? h.look : null, msg;
     if (look && (!want || want === look)) msg = `<b style="color:#7dff9c">Locked in: @${esc(me)} wears HORSE ${esc(look)}.</b> It runs in this look from the next race.`;
     else if (want && OWNER[want] && OWNER[want] !== me) { msg = `<b style="color:var(--neon)">HORSE ${esc(want)} went to @${esc(OWNER[want])} first.</b> Pick another look above and comment the new code.`; }
+    else if (saved.done && saved.handle === me && want === saved.code) { look = want; msg = `<b style="color:var(--gold)">Done! You're wearing HORSE ${esc(want)} (pending).</b> It shows on this device now; everyone else sees it once we confirm your comment, next check ${when}.`; }
     else if (claim && claim.look === want && claim.status === "waiting") { look = want; msg = `<b style="color:var(--gold)">We saw your HORSE ${esc(want)} comment.</b> Like any of our reels or follow to lock it in.`; }
     else if (want) { look = want; msg = LIVE.live ? `<b style="color:var(--gold)">We haven't seen HORSE ${esc(want)} from @${esc(me)} yet.</b> Comment it on any of our reels, then tap Check my horse.` : `<b style="color:var(--gold)">Not synced yet: HORSE ${esc(want)}.</b> Comment it on any of our reels if you haven't. It locks in at the next sync.`; }
     else if (h) msg = `@${esc(me)} hasn't claimed a look yet. Build one above, then comment its code.`;
@@ -539,6 +553,20 @@
     box.classList.remove("flash"); void box.offsetWidth; box.classList.add("flash");
   }
   document.querySelectorAll(".js-check").forEach(b => b.addEventListener("click", () => checkMine(b)));
+  $("#bDone").addEventListener("click", () => {
+    const sv = savedHorse();
+    const me = norm($("#bHandle").value) || sv.handle;
+    const code = ($("#bClaimCode").textContent.match(/[1-4]{4}/) || [])[0];
+    if (!me || !code) { toast("Type your handle and pick a look first."); return; }
+    try { localStorage.setItem("dd-horse", JSON.stringify({ handle: me, code, done: true, doneAt: new Date().toISOString() })); } catch {}
+    $("#bClaim").classList.remove("show");
+    if (LIVE) liveUpdate(LIVE);
+    REBOARD(); myStatus(); redrawBuilder();
+    toast("Your horse is wearing HORSE " + code + "!");
+    const box = $("#liveMine");
+    box.scrollIntoView({ behavior: "smooth", block: "center" });
+    box.classList.remove("flash"); void box.offsetWidth; box.classList.add("flash");
+  });
   Promise.all([getJSON("data/derby.json"), getJSON("data/looks.json").catch(() => null)])
     .then(async ([D, L]) => {
       LOOKS = L && L.parts; API = D.claimsApi || null;
@@ -612,9 +640,11 @@
     }
     document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
       document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x === t));
-      board(t.dataset.sort);
+      boardMode = t.dataset.sort; board(boardMode);
     }));
-    board("medals");
+    let boardMode = "medals";
+    REBOARD = () => board(boardMode);
+    board(boardMode);
 
     // history
     $("#races").innerHTML = races.map(r => {
@@ -707,8 +737,9 @@
       $("#bCode").textContent = "HORSE " + code;
       $("#bName").textContent = LOOKS.map((p, i) => p.options[pick[i]].name + (i === 1 ? " mane" : i === 2 ? " silks" : "")).join(" · ");
       const me = norm(handleIn.value), who = OWNER[code];
-      const mine = !!who && who === me, taken = !!who && !mine;
-      $("#bTaken").textContent = taken ? `Taken by @${who}. Try another combo.` : mine ? "This is your horse." : "Available.";
+      const pend = !who && pendingFor(me) === code;
+      const mine = (!!who && who === me) || pend, taken = !!who && who !== me;
+      $("#bTaken").textContent = taken ? `Taken by @${who}. Try another combo.` : pend ? "Yours, pending confirmation." : mine ? "This is your horse." : "Available.";
       $("#bTaken").style.color = taken ? "var(--neon)" : "#7dff9c";
       $("#bSave").disabled = taken || mine;
       $("#bSave").textContent = mine ? "Already yours" : "Claim this horse";
