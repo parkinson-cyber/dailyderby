@@ -301,5 +301,8 @@
       "status": "open",
       "sponsor": null
     }
-  ]
+  ],
+  "syncEveryMin": 300,
+  "lastSync": null,
+  "claims": []
 }

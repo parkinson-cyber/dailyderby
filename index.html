@@ -101,6 +101,24 @@
   .claim ol{margin:10px 0 0;padding-left:20px;color:var(--muted)}
   .claim li{margin:6px 0}
   .claim b.c{font-family:var(--px);font-size:13px;color:var(--gold)}
+  .live{margin-top:28px}
+  .live-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 12px}
+  .live-head h3{font:700 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;margin:0}
+  .dot{width:10px;height:10px;border-radius:50%;background:#7dff9c;box-shadow:0 0 0 0 rgba(125,255,156,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(125,255,156,.6)}70%{box-shadow:0 0 0 10px rgba(125,255,156,0)}100%{box-shadow:0 0 0 0 rgba(125,255,156,0)}}
+  @media (prefers-reduced-motion:reduce){.dot{animation:none}}
+  .live-head small{color:var(--dim);font-size:13px}
+  .feed{display:grid;gap:8px}
+  .claim-row{display:flex;align-items:center;gap:12px;background:var(--night-2);border:1px solid var(--line);border-radius:6px;padding:8px 12px;min-width:0}
+  .claim-row .who{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .claim-row .code{font-family:var(--px);font-size:11px;color:var(--gold);margin:0;white-space:nowrap}
+  .claim-row small{color:var(--dim);white-space:nowrap}
+  .tag-s{font-size:11px;padding:2px 6px;border-radius:3px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+  .tag-s.ok{color:#7dff9c;border-color:#2f7a43}
+  .tag-s.no{color:var(--neon);border-color:#8f1438}
+  .mine{margin:0 0 14px;padding:12px 14px;border-radius:6px;border:1px solid var(--line);background:var(--night-2);display:none}
+  .mine.show{display:block}
+  @media (max-width:520px){.claim-row small.when{display:none}}
   .btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
   .chip{font-size:12px;padding:4px 8px;border-radius:3px;background:var(--night-2);border:1px solid var(--line);color:var(--muted)}
@@ -275,13 +293,18 @@
           <div class="claim card" id="bClaim" aria-live="polite">
             <b>Almost yours. One step left:</b>
             <ol>
-              <li>Comment <b class="c" id="bClaimCode">HORSE 1111</b> on the latest reel (it's copied). That proves it's you, and it counts as your boost comment too.</li>
-              <li>We lock it in at the next check-in (every few hours). Your horse wears it in the next race.</li>
+              <li>Comment <b class="c" id="bClaimCode">HORSE 1111</b> on any of our reels (it's copied). That proves it's you, and it counts as your boost comment too.</li>
+              <li>It locks in at the next sync with Instagram. Watch for your name under Live claims below.</li>
             </ol>
             <div class="save-row"><a class="btn btn-neon" id="bReel" href="#" target="_blank" rel="noopener">Open the latest reel →</a></div>
           </div>
           <p class="code-note" id="bCount" style="margin-top:16px"></p>
         </div>
+      </div>
+      <div class="live" aria-live="polite">
+        <div class="live-head"><span class="dot" aria-hidden="true"></span><h3>Live claims</h3><small id="liveSync">Checking…</small></div>
+        <div class="mine" id="liveMine"></div>
+        <div class="feed" id="liveFeed"></div>
       </div>
     </div>
   </section>
@@ -436,9 +459,40 @@
     return { gold: m.filter(x => x.place === 1).length, silver: m.filter(x => x.place === 2).length, bronze: m.filter(x => x.place === 3).length, races: h.races || 0 };
   }
 
-  const getJSON = u => fetch(u, { cache: "no-store" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  const getJSON = u => fetch(u + (u.includes("?") ? "&" : "?") + "t=" + Date.now(), { cache: "no-store" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  let OWNER = {}, LIVE = null, redrawBuilder = () => {};
+  const ownersOf = D => { const o = {}; (D.horses || []).forEach(h => { if (h.status !== "removed" && validLook(h.look)) o[h.look] = norm(h.handle); }); return o; };
+  const ago = iso => { if (!iso) return ""; const m = Math.max(0, Math.round((Date.now() - new Date(iso)) / 60000)); return m < 1 ? "just now" : m < 60 ? m + " min ago" : m < 1440 ? Math.round(m / 60) + " h ago" : Math.round(m / 1440) + " d ago"; };
+  function liveUpdate(D) {
+    LIVE = D; OWNER = ownersOf(D);
+    const every = D.syncEveryMin || 60;
+    $("#liveSync").textContent = D.lastSync ? `Synced with Instagram ${ago(D.lastSync)} · checks every ${every >= 60 ? every / 60 + " h" : every + " min"}` : "Waiting for the first sync";
+    const claims = (D.claims || []).slice(0, 12);
+    $("#liveFeed").innerHTML = claims.length ? claims.map(c => {
+      const st = c.status === "taken" ? `<span class="tag-s no">Taken</span>` : c.status === "waiting" ? `<span class="tag-s">Like or follow to lock</span>` : `<span class="tag-s ok">Locked in</span>`;
+      return `<div class="claim-row">${spriteTag(validLook(c.look) ? c.look : "1111", 34)}<span class="who">@${esc(c.handle)}</span><p class="code">HORSE ${esc(c.look)}</p>${st}<small class="when">${esc(ago(c.at))}</small></div>`;
+    }).join("") : `<div class="empty">No claims yet. Be the first: build a horse above and comment its code.</div>`;
+    redrawBuilder();
+    const n = Object.keys(OWNER).length;
+    $("#bCount").textContent = `${n} of 256 looks claimed. Want a different one later? Comment a new code; your old look goes back in the pool.`;
+  }
+  function myStatus() {
+    const box = $("#liveMine"); if (!box || !LIVE) return;
+    const me = norm($("#bHandle").value);
+    let saved = {}; try { saved = JSON.parse(localStorage.getItem("dd-horse") || "{}"); } catch {}
+    if (!me) { box.classList.remove("show"); return; }
+    const h = (LIVE.horses || []).find(x => norm(x.handle) === me);
+    const want = saved.handle === me && validLook(saved.code) ? saved.code : null;
+    let msg;
+    if (h && validLook(h.look) && (!want || want === h.look)) msg = `<b style="color:#7dff9c">@${esc(me)} is wearing HORSE ${esc(h.look)}.</b> It runs in that look from the next race.`;
+    else if (want && OWNER[want] && OWNER[want] !== me) msg = `<b style="color:var(--neon)">HORSE ${esc(want)} went to @${esc(OWNER[want])} first.</b> Pick another look and comment the new code.`;
+    else if (want) msg = `<b style="color:var(--gold)">Waiting for HORSE ${esc(want)}.</b> Comment it on any of our reels if you haven't yet; it locks in at the next sync.`;
+    else if (h) msg = `@${esc(me)} hasn't claimed a look yet. Build one above, then comment its code.`;
+    else msg = `No horse for @${esc(me)} yet. Like a reel or follow to join, then claim a look.`;
+    box.innerHTML = msg; box.classList.add("show");
+  }
   Promise.all([getJSON("data/derby.json"), getJSON("data/looks.json").catch(() => null)])
-    .then(([D, L]) => { LOOKS = L && L.parts; render(D); })
+    .then(([D, L]) => { LOOKS = L && L.parts; render(D); liveUpdate(D); myStatus(); setInterval(() => getJSON("data/derby.json").then(D2 => { liveUpdate(D2); myStatus(); }).catch(() => {}), 60000); })
     .catch(() => { $("#board").innerHTML = `<div class="empty">Couldn't load the race data. Try refreshing.</div>`; });
 
   function render(D) {
@@ -571,7 +625,7 @@
 
   function builder(D, horses) {
     if (!LOOKS) { $("#build").hidden = true; return; }
-    const owner = {}; horses.forEach(h => { if (validLook(h.look)) owner[h.look] = norm(h.handle); });
+    OWNER = ownersOf(D);
     $("#bReel").href = D.latestReel || "https://www.instagram.com/" + IG + "/";
     let saved = {}; try { saved = JSON.parse(localStorage.getItem("dd-horse") || "{}"); } catch {}
     let pick = [0, 0, 0, 0];
@@ -599,7 +653,7 @@
       sprite($("#bPreview"), code);
       $("#bCode").textContent = "HORSE " + code;
       $("#bName").textContent = LOOKS.map((p, i) => p.options[pick[i]].name + (i === 1 ? " mane" : i === 2 ? " silks" : "")).join(" · ");
-      const me = norm(handleIn.value), who = owner[code];
+      const me = norm(handleIn.value), who = OWNER[code];
       const mine = !!who && who === me, taken = !!who && !mine;
       $("#bTaken").textContent = taken ? `Taken by @${who}. Try another combo.` : mine ? "This is your horse." : "Available.";
       $("#bTaken").style.color = taken ? "var(--neon)" : "#7dff9c";
@@ -607,10 +661,11 @@
       $("#bSave").textContent = mine ? "Already yours" : "Claim this horse";
     }
     handleIn.addEventListener("change", () => { setCode(startFor(norm(handleIn.value))); draw(); });
-    handleIn.addEventListener("input", draw);
+    handleIn.addEventListener("input", () => { draw(); myStatus(); });
+    redrawBuilder = draw;
     $("#bForm").addEventListener("submit", e => { e.preventDefault(); setCode(startFor(norm(handleIn.value))); draw(); });
     $("#bRandom").addEventListener("click", () => {
-      for (let k = 0; k < 50; k++) { pick = pick.map(() => Math.floor(Math.random() * 4)); if (!owner[pick.map(n => n + 1).join("")]) break; }
+      for (let k = 0; k < 50; k++) { pick = pick.map(() => Math.floor(Math.random() * 4)); if (!OWNER[pick.map(n => n + 1).join("")]) break; }
       draw();
     });
     $("#bSave").addEventListener("click", async () => {
@@ -620,10 +675,9 @@
       try { localStorage.setItem("dd-horse", JSON.stringify({ handle: me, code })); } catch {}
       $("#bClaimCode").textContent = "HORSE " + code;
       $("#bClaim").classList.add("show");
+      myStatus();
       try { await navigator.clipboard.writeText("HORSE " + code); toast("Copied: HORSE " + code); } catch { toast("Comment HORSE " + code + " on the latest reel."); }
     });
-    const n = Object.keys(owner).length;
-    $("#bCount").textContent = `${n} of 256 looks claimed. Want a different one later? Comment a new code; your old look goes back in the pool.`;
     draw();
   }
 })();
