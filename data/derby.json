@@ -8,6 +8,14 @@
     "status": "open",
     "obstacle": "crowd vote (poll on the Day 1 reel)",
     "entrants": [
+      "_gl88k",
+      "augustorozekarnhold",
+      "krinc_prason",
+      "eyad.ahmed265",
+      "kangaroo.5791274",
+      "tavianhaddox",
+      "logpackersfan2710",
+      "aolaa_w",
       "timleahy_08",
       "idk.drippy",
       "amelia.wood13",
@@ -22,7 +30,21 @@
       "why_do_you_need_a_name_",
       "__choi_12",
       "micro_facts_information",
-      "himc__"
+      "himc__",
+      "aidenlarch7",
+      "slabjmin",
+      "beauuallen",
+      "logan_b6682",
+      "purplegood38",
+      "jacobodavis35",
+      "evuciitee",
+      "_aj_the_equestrian_",
+      "its_llellooo._",
+      "umutozanculha",
+      "browingreagan",
+      "slezak.marek39",
+      "b0bkata_mt",
+      "pape.cchqser"
     ]
   },
   "races": [
@@ -220,6 +242,157 @@
       "joined": "2026-11-21",
       "races": 0,
       "medals": []
+    },
+    {
+      "handle": "_gl88k",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "look": "3114"
+    },
+    {
+      "handle": "augustorozekarnhold",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "krinc_prason",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "look": "2244"
+    },
+    {
+      "handle": "eyad.ahmed265",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "look": "3342"
+    },
+    {
+      "handle": "kangaroo.5791274",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "tavianhaddox",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "look": "3331"
+    },
+    {
+      "handle": "logpackersfan2710",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "look": "2344"
+    },
+    {
+      "handle": "aolaa_w",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "aidenlarch7",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "slabjmin",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "beauuallen",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "logan_b6682",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "purplegood38",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "jacobodavis35",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "evuciitee",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "_aj_the_equestrian_",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "its_llellooo._",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "umutozanculha",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "browingreagan",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "slezak.marek39",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "b0bkata_mt",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "pape.cchqser",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
     }
   ],
   "sponsorSpots": [
@@ -305,14 +478,14 @@
     }
   ],
   "syncEveryMin": 60,
-  "lastSync": "2026-11-20T23:49:52Z",
+  "lastSync": "2026-11-20T23:52:54Z",
   "claims": [
     {
       "handle": "krinc_prason",
       "look": "2244",
       "at": "2026-11-20T16:35:45Z",
       "reel": "https://www.instagram.com/p/Df40W_ip_FW/",
-      "status": "waiting"
+      "status": "locked"
     },
     {
       "handle": "snocin",
@@ -326,21 +499,21 @@
       "look": "3342",
       "at": "2026-11-20T15:49:56Z",
       "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
-      "status": "waiting"
+      "status": "locked"
     },
     {
       "handle": "_gl88k",
       "look": "3114",
       "at": "2026-11-20T15:27:11Z",
       "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
-      "status": "waiting"
+      "status": "locked"
     },
     {
       "handle": "tavianhaddox",
       "look": "3331",
       "at": "2026-11-20T15:11:54Z",
       "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
-      "status": "waiting"
+      "status": "locked"
     },
     {
       "handle": "e.superskyi",
@@ -354,7 +527,7 @@
       "look": "2344",
       "at": "2026-11-20T14:19:11Z",
       "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
-      "status": "waiting"
+      "status": "locked"
     },
     {
       "handle": "yanniss_wk",
