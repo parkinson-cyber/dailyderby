@@ -116,8 +116,13 @@
   .tag-s{font-size:11px;padding:2px 6px;border-radius:3px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
   .tag-s.ok{color:#7dff9c;border-color:#2f7a43}
   .tag-s.no{color:var(--neon);border-color:#8f1438}
-  .mine{margin:0 0 14px;padding:12px 14px;border-radius:6px;border:1px solid var(--line);background:var(--night-2);display:none}
-  .mine.show{display:block}
+  .mine{margin:0 0 14px;padding:14px;border-radius:6px;border:1px solid var(--line);background:var(--night-2);display:none;gap:14px;align-items:center}
+  .mine.show{display:flex}
+  .mine svg{flex:none;width:84px;height:auto}
+  .mine .txt{min-width:0}
+  .mine small{display:block;color:var(--dim);margin-top:4px}
+  .mine.flash{animation:flash .9s ease-out}
+  @keyframes flash{from{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,194,66,.35)}to{border-color:var(--line);box-shadow:none}}
   @media (max-width:520px){.claim-row small.when{display:none}}
   .btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
@@ -289,6 +294,7 @@
           <div class="save-row">
             <button class="btn btn-gold" id="bSave" type="button">Claim this horse</button>
             <button class="btn btn-ghost" id="bRandom" type="button">Surprise me</button>
+            <button class="btn btn-ghost js-check" type="button">Check my horse</button>
           </div>
           <div class="claim card" id="bClaim" aria-live="polite">
             <b>Almost yours. One step left:</b>
@@ -296,7 +302,7 @@
               <li>Comment <b class="c" id="bClaimCode">HORSE 1111</b> on any of our reels (it's copied). That proves it's you, and it counts as your boost comment too.</li>
               <li>It locks in at the next sync with Instagram. Watch for your name under Live claims below.</li>
             </ol>
-            <div class="save-row"><a class="btn btn-neon" id="bReel" href="#" target="_blank" rel="noopener">Open the latest reel →</a></div>
+            <div class="save-row"><a class="btn btn-neon" id="bReel" href="#" target="_blank" rel="noopener">Open the latest reel →</a><button class="btn btn-ghost js-check" type="button">Check my horse</button></div>
           </div>
           <p class="code-note" id="bCount" style="margin-top:16px"></p>
         </div>
@@ -481,16 +487,36 @@
     const me = norm($("#bHandle").value);
     let saved = {}; try { saved = JSON.parse(localStorage.getItem("dd-horse") || "{}"); } catch {}
     if (!me) { box.classList.remove("show"); return; }
-    const h = (LIVE.horses || []).find(x => norm(x.handle) === me);
-    const want = saved.handle === me && validLook(saved.code) ? saved.code : null;
-    let msg;
-    if (h && validLook(h.look) && (!want || want === h.look)) msg = `<b style="color:#7dff9c">@${esc(me)} is wearing HORSE ${esc(h.look)}.</b> It runs in that look from the next race.`;
-    else if (want && OWNER[want] && OWNER[want] !== me) msg = `<b style="color:var(--neon)">HORSE ${esc(want)} went to @${esc(OWNER[want])} first.</b> Pick another look and comment the new code.`;
-    else if (want) msg = `<b style="color:var(--gold)">Waiting for HORSE ${esc(want)}.</b> Comment it on any of our reels if you haven't yet; it locks in at the next sync.`;
+    const h = (LIVE.horses || []).find(x => norm(x.handle) === me && x.status !== "removed");
+    const claim = (LIVE.claims || []).find(c => norm(c.handle) === me);
+    const want = saved.handle === me && validLook(saved.code) ? saved.code : (claim ? claim.look : null);
+    const every = LIVE.syncEveryMin || 60;
+    const next = LIVE.lastSync ? new Date(new Date(LIVE.lastSync).getTime() + every * 60000) : null;
+    const mins = next ? Math.max(0, Math.round((next - Date.now()) / 60000)) : null;
+    const when = next ? (mins <= 1 ? "any minute now" : `in about ${mins} min`) : "soon";
+    const synced = LIVE.lastSync ? `Last synced with Instagram ${ago(LIVE.lastSync)}. Next sync ${when}.` : "Waiting for the first sync with Instagram.";
+    let look = h && validLook(h.look) ? h.look : null, msg;
+    if (look && (!want || want === look)) msg = `<b style="color:#7dff9c">Locked in: @${esc(me)} wears HORSE ${esc(look)}.</b> It runs in this look from the next race.`;
+    else if (want && OWNER[want] && OWNER[want] !== me) { msg = `<b style="color:var(--neon)">HORSE ${esc(want)} went to @${esc(OWNER[want])} first.</b> Pick another look above and comment the new code.`; }
+    else if (claim && claim.look === want && claim.status === "waiting") { look = want; msg = `<b style="color:var(--gold)">We saw your HORSE ${esc(want)} comment.</b> Like any of our reels or follow to lock it in.`; }
+    else if (want) { look = want; msg = `<b style="color:var(--gold)">Not synced yet: HORSE ${esc(want)}.</b> Comment it on any of our reels if you haven't. It locks in at the next sync.`; }
     else if (h) msg = `@${esc(me)} hasn't claimed a look yet. Build one above, then comment its code.`;
     else msg = `No horse for @${esc(me)} yet. Like a reel or follow to join, then claim a look.`;
-    box.innerHTML = msg; box.classList.add("show");
+    box.innerHTML = `${spriteTag(look || (h ? lookFor(h.handle) : "1111"), 84)}<div class="txt">${msg}<small>${synced}</small></div>`;
+    box.classList.add("show");
   }
+  async function checkMine(btn) {
+    const me = norm($("#bHandle").value);
+    if (!me) { $("#bHandle").focus(); toast("Type your Instagram handle first."); return; }
+    const label = btn.textContent; btn.disabled = true; btn.textContent = "Checking…";
+    try { liveUpdate(await getJSON("data/derby.json")); } catch { toast("Couldn't reach the race data. Try again."); }
+    myStatus();
+    btn.disabled = false; btn.textContent = label;
+    const box = $("#liveMine");
+    box.scrollIntoView({ behavior: "smooth", block: "center" });
+    box.classList.remove("flash"); void box.offsetWidth; box.classList.add("flash");
+  }
+  document.querySelectorAll(".js-check").forEach(b => b.addEventListener("click", () => checkMine(b)));
   Promise.all([getJSON("data/derby.json"), getJSON("data/looks.json").catch(() => null)])
     .then(([D, L]) => { LOOKS = L && L.parts; render(D); liveUpdate(D); myStatus(); setInterval(() => getJSON("data/derby.json").then(D2 => { liveUpdate(D2); myStatus(); }).catch(() => {}), 60000); })
     .catch(() => { $("#board").innerHTML = `<div class="empty">Couldn't load the race data. Try refreshing.</div>`; });
