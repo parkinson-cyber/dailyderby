@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Daily Derby · The Pixel Paddock</title>
-<meta name="description" content="A pixel horse race every day on Instagram. Follow and a horse runs with your @name on it. Find your horse, see the rankings and the Hall of Fame.">
+<meta name="description" content="A pixel horse race every day on Instagram. Like the latest reel or follow, and a horse runs with your @name on it. Find your horse, see the rankings and the Hall of Fame.">
 <meta property="og:title" content="Daily Derby · The Pixel Paddock">
 <meta property="og:description" content="Your name. Your horse. A race every day.">
 <meta property="og:image" content="assets/k2_track.png">
@@ -218,7 +218,7 @@
       <div>
         <p class="kicker">The Pixel Paddock · a race every day</p>
         <h1>Your name.<br>Your horse.<br><em>Every day.</em></h1>
-        <p class="lede">Follow <b>@dailyderby_horse</b> and you're locked into the next race: a horse runs with your @name above it. <b>Comment</b> on the latest reel (a cheer, a guess, anything), and the more likes your comment gets, the faster your horse runs.</p>
+        <p class="lede"><b>Like</b> the latest reel or <b>follow</b> @dailyderby_horse and you're locked into the next race: a horse runs with your @name above it. <b>Comment</b> on the latest reel (a cheer, a guess, anything), and the more likes your comment gets, the faster your horse runs.</p>
         <div class="cta-row">
           <a class="btn btn-neon" id="enterBtn" href="https://www.instagram.com/p/Df40W_ip_FW/" target="_blank" rel="noopener">Enter the next race →</a>
           <a class="btn btn-ghost" href="#build">Build my horse</a>
@@ -344,7 +344,7 @@
       <h2 class="px">Three steps to the gate</h2>
       <p class="sub">Free to enter. There's no betting and no money involved.</p>
       <div class="steps">
-        <div class="card step"><div class="n">01</div><h3>Follow</h3><p>Follow @dailyderby_horse and you're locked into the next race, with your @name on your horse's tag.</p></div>
+        <div class="card step"><div class="n">01</div><h3>Like or follow</h3><p>Like the latest reel or follow @dailyderby_horse and you're locked into the next race, with your @name on your horse's tag.</p></div>
         <div class="card step"><div class="n">02</div><h3>Comment</h3><p>Comment anything on the latest reel. The earlier you comment, the better your place in a tie.</p></div>
         <div class="card step"><div class="n">03</div><h3>Get likes</h3><p>Likes on your comment raise your odds. Even the favourite usually loses, so anyone can win.</p></div>
       </div>
@@ -360,7 +360,7 @@
 <footer>
   <div class="wrap">
     <p><b style="color:var(--ink)">Daily Derby · The Pixel Paddock</b> · a fan-made game on Instagram. Not a betting service; nothing here can be bought or wagered.</p>
-    <p>Following means your @handle can appear on a horse. Want it removed? DM <a href="https://ig.me/m/dailyderby_horse" target="_blank" rel="noopener">@dailyderby_horse</a> and it's gone.</p>
+    <p>Liking a reel or following means your @handle can appear on a horse. Want it removed? DM <a href="https://ig.me/m/dailyderby_horse" target="_blank" rel="noopener">@dailyderby_horse</a> and it's gone.</p>
     <p id="updated"></p>
   </div>
 </footer>
@@ -466,7 +466,7 @@
       if (!h) {
         out.innerHTML = isIn
           ? `<div class="empty"><strong>@${esc(q)} is locked in for Day ${D.nextRace.day}.</strong> Your horse makes its debut in the next race. Good luck!</div>`
-          : `<div class="empty"><strong>No horse for @${esc(q)} yet.</strong> <a href="https://www.instagram.com/${IG}/" target="_blank" rel="noopener">Follow @${IG}</a> to get your horse in the next race. New followers are added every few hours, so check back later if you've just followed.</div>`;
+          : `<div class="empty"><strong>No horse for @${esc(q)} yet.</strong> <a href="${esc(D.latestReel || "https://www.instagram.com/" + IG + "/")}" target="_blank" rel="noopener">Like the latest reel</a> or <a href="https://www.instagram.com/${IG}/" target="_blank" rel="noopener">follow @${IG}</a> to get your horse in the next race. New horses are added every few hours, so check back later if you've just joined.</div>`;
         return;
       }
       const s = stats(h);

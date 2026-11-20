@@ -12,7 +12,7 @@ Edit `data/derby.json`, then commit and push. GitHub Pages republishes within ab
 |---|---|
 | `updated` | Today's date, `YYYY-MM-DD` |
 | `latestReel` | Link to the newest reel. The "Enter the next race" button points here |
-| `nextRace` | `day`, `date`, and `entrants`: every current follower, without the @ (following locks you in). The check-in (every 5 hours) updates this and pushes it |
+| `nextRace` | `day`, `date`, and `entrants`: every current follower plus everyone who liked a reel in the last 48 hours, without the @ (a like or a follow locks you in; like-only horses carry `"via": "like"`). The check-in (every 5 hours) updates this and pushes it |
 | `races[]` | Add one per race: `day`, `date`, `title`, `track`, `runners`, `reel`, `results: [{handle, place}]` |
 | `horses[]` | One per entrant: `handle`, `races` (count), `medals: [{day, place}]` for 1st–3rd, optional `status: "removed"` |
 | `sponsorSpots[]` | Set `status` to `taken` and `sponsor` to the brand name once a spot is agreed |
