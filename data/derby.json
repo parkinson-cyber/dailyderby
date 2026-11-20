@@ -175,7 +175,8 @@
       "handle": "yanniss_wk",
       "joined": "2026-11-19",
       "races": 1,
-      "medals": []
+      "medals": [],
+      "look": "1312"
     },
     {
       "handle": "arabella.sk8s",
@@ -302,7 +303,22 @@
       "sponsor": null
     }
   ],
-  "syncEveryMin": 300,
-  "lastSync": null,
-  "claims": []
+  "syncEveryMin": 60,
+  "lastSync": "2026-11-20T14:34:19Z",
+  "claims": [
+    {
+      "handle": "logpackersfan2710",
+      "look": "2344",
+      "at": "2026-11-20T14:19:11Z",
+      "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
+      "status": "waiting"
+    },
+    {
+      "handle": "yanniss_wk",
+      "look": "1312",
+      "at": "2026-11-20T13:21:27Z",
+      "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
+      "status": "locked"
+    }
+  ]
 }
