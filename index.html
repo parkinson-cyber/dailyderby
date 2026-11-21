@@ -648,7 +648,7 @@
 
     // history
     $("#races").innerHTML = races.map(r => {
-      const pod = (r.results || []).filter(x => x.place <= 3).sort((a, b) => a.place - b.place);
+      const pod = (r.results || []).filter(x => x.place && x.place <= 3).sort((a, b) => a.place - b.place);
       return `<div class="card race">
         <div class="day">DAY<br>${r.day}</div>
         <div>
