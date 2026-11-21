@@ -717,7 +717,7 @@
       "joined": "2026-11-21",
       "races": 2,
       "medals": [],
-      "look": "3114"
+      "look": "1214"
     },
     {
       "handle": "augustorozekarnhold",
@@ -1028,8 +1028,15 @@
     }
   ],
   "syncEveryMin": 60,
-  "lastSync": "2026-11-21T14:33:34Z",
+  "lastSync": "2026-11-21T14:50:10Z",
   "claims": [
+    {
+      "handle": "_gl88k",
+      "look": "1214",
+      "at": "2026-11-21T14:38:32Z",
+      "reel": "https://www.instagram.com/p/DgAcGG5JKhP/",
+      "status": "locked"
+    },
     {
       "handle": "aolaa_w",
       "look": "2324",
