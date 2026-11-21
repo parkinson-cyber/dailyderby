@@ -205,6 +205,8 @@
   .toast.show{transform:translateX(-50%) translateY(0)}
 
   /* how */
+  .season-line{margin:-6px 0 18px;padding:10px 14px;border:1px solid #8a6510;border-radius:10px;color:var(--muted);font-size:15px}
+  .season-line b{color:var(--gold)}
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   @media (max-width:980px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media (max-width:560px){.steps{grid-template-columns:1fr}}
@@ -325,8 +327,9 @@
 
   <section id="rankings">
     <div class="wrap">
-      <p class="kicker">Rankings</p>
+      <p class="kicker" id="seasonKicker">Rankings</p>
       <h2 class="px">The standings</h2>
+      <p class="season-line" id="seasonLine" hidden></p>
       <p class="sub">Every race scores: <b>20</b> points for a win, 15 for 2nd, 12 for 3rd, then 10, 9, 8, 7, 6, 5 and 4 down to 10th. Every other finisher gets 2, and a banana DNF still gets 1. Ties go to more wins.</p>
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" aria-selected="true" data-sort="points">Points</button>
@@ -359,7 +362,7 @@
   <section id="hall">
     <div class="wrap">
       <div class="hof">
-        <div class="hof-plaque"><div class="px">HALL OF FAME</div><p>One winner a day · the medal never comes off</p></div>
+        <div class="hof-plaque"><div class="px">HALL OF FAME</div><p>Season 1 · one winner a day for 30 days · the medal never comes off</p></div>
         <div class="frames" id="frames"></div>
       </div>
     </div>
@@ -608,7 +611,15 @@
 
     // hero
     if (D.latestReel) $("#enterBtn").href = D.latestReel;
-    $("#sDay").textContent = D.nextRace ? "DAY " + D.nextRace.day : "—";
+    const S = D.season;
+    $("#sDay").textContent = D.nextRace ? "DAY " + D.nextRace.day + (S ? "/" + S.days : "") : "—";
+    if (S) {
+      const done = Math.max(0, ...races.filter(r => r.kind === "race" && (r.season || 1) === S.number).map(r => r.day));
+      $("#seasonKicker").textContent = `${S.name} · Day ${done}/${S.days}`;
+      const left = S.days - done;
+      $("#seasonLine").innerHTML = `<b>${S.days}-day season.</b> ${esc(S.rule)} ${left > 0 ? `${left} race${left === 1 ? "" : "s"} to go.` : "The season is over."}`;
+      $("#seasonLine").hidden = false;
+    }
     $("#sEntered").textContent = entrants.size;
     $("#sStable").textContent = horses.length;
     const named = races.find(r => r.track);
@@ -702,7 +713,7 @@
     // hall of fame: winners, then vacant frames to fill whole rows (6 wide; 3 on phones, which also divides)
     const winners = races.slice().reverse().map(r => ({ r, w: (r.results || []).find(x => x.place === 1) })).filter(x => x.w);
     const next = D.nextRace?.day || 1;
-    const total = Math.max(12, Math.ceil((winners.length + 6) / 6) * 6);
+    const total = D.season ? Math.max(D.season.days, winners.length) : Math.max(12, Math.ceil((winners.length + 6) / 6) * 6);
     let frames = winners.map(({ r, w }) => `<div class="frame won">${spriteTag(horseLook(horses.find(x => norm(x.handle) === norm(w.handle)) || { handle: w.handle }), 56)}<div class="n">@${esc(w.handle)}</div><div class="d">DAY ${r.day}</div></div>`);
     for (let d = next; frames.length < total; d++) frames.push(`<div class="frame vacant"><div class="d">DAY ${d}</div><div class="n">Winner's spot</div></div>`);
     $("#frames").innerHTML = frames.join("");

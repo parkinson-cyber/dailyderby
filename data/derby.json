@@ -1,12 +1,11 @@
 {
   "updated": "2026-11-22",
   "account": "dailyderby_horse",
-  "latestReel": "https://www.instagram.com/p/Df_u417pzfe/",
+  "latestReel": "https://www.instagram.com/reel/DgAcGG5JKhP/",
   "nextRace": {
-    "day": 3,
-    "date": "2026-11-22",
+    "day": 4,
+    "date": "2026-11-23",
     "status": "open",
-    "weather": "crowd vote (poll on the Day 2 reel: heatwave / rain / fog)",
     "entrants": [
       "iamkaelmcdonald",
       "diaz_monkey_3",
@@ -52,7 +51,8 @@
       "slezak.marek39",
       "b0bkata_mt",
       "pape.cchqser"
-    ]
+    ],
+    "track": "crowd vote: Figure 8 / Jumps / Mud shortcut (comment 8, J or M on the Day 3 reel)"
   },
   "races": [
     {
@@ -338,19 +338,271 @@
           "out": "banana"
         }
       ]
+    },
+    {
+      "day": 3,
+      "date": "2026-11-22",
+      "kind": "race",
+      "title": "King's Warmup: banana storm",
+      "track": "King's Warmup",
+      "runners": 44,
+      "laps": 3,
+      "obstacle": "banana peel",
+      "weather": "rain (crowd vote)",
+      "season": 1,
+      "reel": "https://www.instagram.com/reel/DgAcGG5JKhP/",
+      "seed": "dailyderby-day3-2026-11-22",
+      "note": "Rain won the crowd vote, so the race ran in a storm. Bananas knocked out @edgar__leung, @_aj_the_equestrian_ and @purplegood38 (DNF). @logpackersfan2710 won at 3% with a custom look (+8%), and @b0bkata_mt took silver from 1%, the longest shot in the field.",
+      "results": [
+        {
+          "place": 1,
+          "handle": "logpackersfan2710",
+          "odds": 3,
+          "boost": 8
+        },
+        {
+          "place": 2,
+          "handle": "b0bkata_mt",
+          "odds": 1
+        },
+        {
+          "place": 3,
+          "handle": "aolaa_w",
+          "odds": 4,
+          "boost": 6
+        },
+        {
+          "place": 4,
+          "handle": "wilfred_2.0",
+          "odds": 3
+        },
+        {
+          "place": 5,
+          "handle": "_gl88k",
+          "odds": 4,
+          "boost": 8
+        },
+        {
+          "place": 6,
+          "handle": "pape.cchqser",
+          "odds": 1
+        },
+        {
+          "place": 7,
+          "handle": "its_llellooo._",
+          "odds": 1
+        },
+        {
+          "place": 8,
+          "handle": "idk.drippy",
+          "odds": 3
+        },
+        {
+          "place": 9,
+          "handle": "kangaroo.5791274",
+          "odds": 3
+        },
+        {
+          "place": 10,
+          "handle": "jacobodavis35",
+          "odds": 2
+        },
+        {
+          "place": 11,
+          "handle": "yanniss_wk",
+          "odds": 3,
+          "boost": 9
+        },
+        {
+          "place": 12,
+          "handle": "aidenlarch7",
+          "odds": 1
+        },
+        {
+          "place": 13,
+          "handle": "nagdamaahir",
+          "odds": 2
+        },
+        {
+          "place": 14,
+          "handle": "e.superskyi",
+          "odds": 2,
+          "boost": 8
+        },
+        {
+          "place": 15,
+          "handle": "tavianhaddox",
+          "odds": 3,
+          "boost": 6
+        },
+        {
+          "place": 16,
+          "handle": "slabjmin",
+          "odds": 1
+        },
+        {
+          "place": 17,
+          "handle": "evuciitee",
+          "odds": 1
+        },
+        {
+          "place": 18,
+          "handle": "ez.bull.terrier.arts",
+          "odds": 1
+        },
+        {
+          "place": 19,
+          "handle": "browingreagan",
+          "odds": 1
+        },
+        {
+          "place": 20,
+          "handle": "fei._.ka",
+          "odds": 3
+        },
+        {
+          "place": 21,
+          "handle": "amelia.wood13",
+          "odds": 3
+        },
+        {
+          "place": 22,
+          "handle": "umutozanculha",
+          "odds": 1
+        },
+        {
+          "place": 23,
+          "handle": "micro_facts_information",
+          "odds": 2
+        },
+        {
+          "place": 24,
+          "handle": "ur_fave.emo",
+          "odds": 2
+        },
+        {
+          "place": 25,
+          "handle": "logan_b6682",
+          "odds": 1
+        },
+        {
+          "place": 26,
+          "handle": "eyad.ahmed265",
+          "odds": 4,
+          "boost": 5
+        },
+        {
+          "place": 27,
+          "handle": "harman_saandhu",
+          "odds": 3
+        },
+        {
+          "place": 28,
+          "handle": "diaz_monkey_3",
+          "odds": 4
+        },
+        {
+          "place": 29,
+          "handle": "johnsnicklefuckthe3rd",
+          "odds": 3
+        },
+        {
+          "place": 30,
+          "handle": "himc__",
+          "odds": 2
+        },
+        {
+          "place": 31,
+          "handle": "charlieether489",
+          "odds": 2
+        },
+        {
+          "place": 32,
+          "handle": "augustorozekarnhold",
+          "odds": 4
+        },
+        {
+          "place": 33,
+          "handle": "iamkaelmcdonald",
+          "odds": 4
+        },
+        {
+          "place": 34,
+          "handle": "slezak.marek39",
+          "odds": 1
+        },
+        {
+          "place": 35,
+          "handle": "quentino111",
+          "odds": 2
+        },
+        {
+          "place": 36,
+          "handle": "beauuallen",
+          "odds": 1
+        },
+        {
+          "place": 37,
+          "handle": "caelanmorton431",
+          "odds": 2,
+          "boost": 7
+        },
+        {
+          "place": 38,
+          "handle": "__choi_12",
+          "odds": 2
+        },
+        {
+          "place": 39,
+          "handle": "timleahy_08",
+          "odds": 3
+        },
+        {
+          "place": 40,
+          "handle": "why_do_you_need_a_name_",
+          "odds": 2
+        },
+        {
+          "place": 41,
+          "handle": "krinc_prason",
+          "odds": 4,
+          "boost": 7
+        },
+        {
+          "place": null,
+          "handle": "edgar__leung",
+          "odds": 3,
+          "dnf": true,
+          "out": "banana"
+        },
+        {
+          "place": null,
+          "handle": "_aj_the_equestrian_",
+          "odds": 1,
+          "dnf": true,
+          "out": "banana"
+        },
+        {
+          "place": null,
+          "handle": "purplegood38",
+          "odds": 1,
+          "dnf": true,
+          "out": "banana"
+        }
+      ]
     }
   ],
   "horses": [
     {
       "handle": "johnsnicklefuckthe3rd",
       "joined": "2026-11-19",
-      "races": 2,
+      "races": 3,
       "medals": []
     },
     {
       "handle": "e.superskyi",
       "joined": "2026-11-19",
-      "races": 2,
+      "races": 3,
       "medals": [
         {
           "day": 1,
@@ -362,37 +614,37 @@
     {
       "handle": "why_do_you_need_a_name_",
       "joined": "2026-11-19",
-      "races": 2,
+      "races": 3,
       "medals": []
     },
     {
       "handle": "__choi_12",
       "joined": "2026-11-19",
-      "races": 2,
+      "races": 3,
       "medals": []
     },
     {
       "handle": "micro_facts_information",
       "joined": "2026-11-19",
-      "races": 2,
+      "races": 3,
       "medals": []
     },
     {
       "handle": "himc__",
       "joined": "2026-11-19",
-      "races": 2,
+      "races": 3,
       "medals": []
     },
     {
       "handle": "wilfred_2.0",
       "joined": "2026-11-19",
-      "races": 2,
+      "races": 3,
       "medals": []
     },
     {
       "handle": "fei._.ka",
       "joined": "2026-11-19",
-      "races": 2,
+      "races": 3,
       "medals": [
         {
           "day": 1,
@@ -403,13 +655,13 @@
     {
       "handle": "harman_saandhu",
       "joined": "2026-11-19",
-      "races": 2,
+      "races": 3,
       "medals": []
     },
     {
       "handle": "yanniss_wk",
       "joined": "2026-11-19",
-      "races": 2,
+      "races": 3,
       "medals": [],
       "look": "1312"
     },
@@ -428,25 +680,25 @@
     {
       "handle": "edgar__leung",
       "joined": "2026-11-20",
-      "races": 1,
+      "races": 2,
       "medals": []
     },
     {
       "handle": "timleahy_08",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": []
     },
     {
       "handle": "idk.drippy",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": []
     },
     {
       "handle": "amelia.wood13",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [
         {
           "day": 2,
@@ -463,82 +715,92 @@
     {
       "handle": "_gl88k",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "look": "3114"
     },
     {
       "handle": "augustorozekarnhold",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": []
     },
     {
       "handle": "krinc_prason",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "look": "2244"
     },
     {
       "handle": "eyad.ahmed265",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "look": "3342"
     },
     {
       "handle": "kangaroo.5791274",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": []
     },
     {
       "handle": "tavianhaddox",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "look": "3331"
     },
     {
       "handle": "logpackersfan2710",
       "joined": "2026-11-21",
-      "races": 1,
-      "medals": [],
+      "races": 2,
+      "medals": [
+        {
+          "day": 3,
+          "place": 1
+        }
+      ],
       "look": "2344"
     },
     {
       "handle": "aolaa_w",
       "joined": "2026-11-21",
-      "races": 1,
-      "medals": [],
+      "races": 2,
+      "medals": [
+        {
+          "day": 3,
+          "place": 3
+        }
+      ],
       "look": "2324"
     },
     {
       "handle": "aidenlarch7",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "slabjmin",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "beauuallen",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "logan_b6682",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [
         {
           "day": 2,
@@ -550,14 +812,14 @@
     {
       "handle": "purplegood38",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "jacobodavis35",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [
         {
           "day": 2,
@@ -569,89 +831,94 @@
     {
       "handle": "evuciitee",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "_aj_the_equestrian_",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "its_llellooo._",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "umutozanculha",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "browingreagan",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "slezak.marek39",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "b0bkata_mt",
       "joined": "2026-11-21",
-      "races": 1,
-      "medals": [],
+      "races": 2,
+      "medals": [
+        {
+          "day": 3,
+          "place": 2
+        }
+      ],
       "via": "like"
     },
     {
       "handle": "pape.cchqser",
       "joined": "2026-11-21",
-      "races": 1,
+      "races": 2,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "diaz_monkey_3",
       "joined": "2026-11-21",
-      "races": 0,
+      "races": 1,
       "medals": []
     },
     {
       "handle": "ur_fave.emo",
       "joined": "2026-11-21",
-      "races": 0,
+      "races": 1,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "ez.bull.terrier.arts",
       "joined": "2026-11-21",
-      "races": 0,
+      "races": 1,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "iamkaelmcdonald",
       "joined": "2026-11-21",
-      "races": 0,
+      "races": 1,
       "medals": []
     },
     {
       "handle": "caelanmorton431",
       "joined": "2026-11-21",
-      "races": 0,
+      "races": 1,
       "medals": [],
       "via": "like",
       "look": "2441"
@@ -659,21 +926,21 @@
     {
       "handle": "nagdamaahir",
       "joined": "2026-11-21",
-      "races": 0,
+      "races": 1,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "quentino111",
       "joined": "2026-11-21",
-      "races": 0,
+      "races": 1,
       "medals": [],
       "via": "like"
     },
     {
       "handle": "charlieether489",
       "joined": "2026-11-21",
-      "races": 0,
+      "races": 1,
       "medals": [],
       "via": "like"
     }
@@ -833,5 +1100,12 @@
       "reel": "https://www.instagram.com/p/Df9vLPdp69u/",
       "status": "locked"
     }
-  ]
+  ],
+  "season": {
+    "name": "Season 1",
+    "number": 1,
+    "days": 30,
+    "start": "2026-11-19",
+    "rule": "Most points after Day 30 wins the season."
+  }
 }
