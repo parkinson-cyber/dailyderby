@@ -125,6 +125,9 @@
   @keyframes flash{from{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,194,66,.35)}to{border-color:var(--line);box-shadow:none}}
   @media (max-width:520px){.claim-row small.when{display:none}}
   .btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none}
+  .medal-days{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .medal-days span{font-size:12px;color:var(--muted);white-space:nowrap}
+  td.tot{font-weight:700}
   td.pts,th.pts{color:var(--gold);font-weight:700}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
   .chip{font-size:12px;padding:4px 8px;border-radius:3px;background:var(--night-2);border:1px solid var(--line);color:var(--muted)}
@@ -229,6 +232,7 @@
       <a href="#build">Build</a>
       <a href="#rankings">Rankings</a>
       <a href="#history">Races</a>
+      <a href="#medals">Medals</a>
       <a href="#hall">Hall of Fame</a>
       <a href="#sponsor">Sponsor</a>
     </nav>
@@ -328,6 +332,15 @@
         <button class="tab" role="tab" aria-selected="false" data-sort="races">Most races</button>
       </div>
       <div id="board"></div>
+    </div>
+  </section>
+
+  <section id="medals">
+    <div class="wrap">
+      <p class="kicker">Medal table</p>
+      <h2 class="px">Gold, silver, bronze</h2>
+      <p class="sub">Only horses that have won a medal. Ranked by golds, then silvers, then bronzes.</p>
+      <div id="medalTable"></div>
     </div>
   </section>
 
@@ -654,6 +667,17 @@
     let boardMode = "points";
     REBOARD = () => board(boardMode);
     board(boardMode);
+
+    // medal table: medallists only
+    const medallists = horses.map(h => ({ h, ...stats(h), md: (h.medals || []).slice().sort((a, b) => a.day - b.day) }))
+      .filter(r => r.gold + r.silver + r.bronze > 0)
+      .sort((a, b) => b.gold - a.gold || b.silver - a.silver || b.bronze - a.bronze || a.h.handle.localeCompare(b.h.handle));
+    $("#medalTable").innerHTML = medallists.length ? `<div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Horse</th><th class="num" aria-label="Gold"><span class="m g"></span><span class="lbl">Gold</span></th><th class="num" aria-label="Silver"><span class="m s"></span><span class="lbl">Silver</span></th><th class="num" aria-label="Bronze"><span class="m b"></span><span class="lbl">Bronze</span></th><th class="num">Total</th></tr></thead>
+      <tbody>${medallists.map((r, i) => `<tr><td class="rank">${i + 1}</td><td><span class="who">${spriteTag(horseLook(r.h), 30)}@${esc(r.h.handle)}</span>
+        <div class="medal-days">${r.md.map(m => `<span><span class="m ${"gsb"[m.place - 1]}"></span>Day ${m.day}</span>`).join("")}</div></td>
+        <td class="num">${r.gold}</td><td class="num">${r.silver}</td><td class="num">${r.bronze}</td><td class="num tot">${r.gold + r.silver + r.bronze}</td></tr>`).join("")}</tbody>
+    </table></div>` : `<div class="empty"><strong>No medals yet.</strong> The first podium fills this table.</div>`;
 
     // history
     $("#races").innerHTML = races.map(r => {
