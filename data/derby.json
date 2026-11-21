@@ -1,13 +1,14 @@
 {
   "updated": "2026-11-21",
   "account": "dailyderby_horse",
-  "latestReel": "https://www.instagram.com/p/Df-_4FZppBC/",
+  "latestReel": "https://www.instagram.com/p/Df_u417pzfe/",
   "nextRace": {
     "day": 3,
     "date": "2026-11-22",
     "status": "open",
     "weather": "crowd vote (poll on the Day 2 reel: heatwave / rain / fog)",
     "entrants": [
+      "iamkaelmcdonald",
       "diaz_monkey_3",
       "_gl88k",
       "augustorozekarnhold",
@@ -20,7 +21,6 @@
       "timleahy_08",
       "idk.drippy",
       "amelia.wood13",
-      "wjd88888888",
       "edgar__leung",
       "wilfred_2.0",
       "fei._.ka",
@@ -32,8 +32,12 @@
       "__choi_12",
       "micro_facts_information",
       "himc__",
-      "ur_fave.emo",
+      "caelanmorton431",
+      "nagdamaahir",
+      "quentino111",
       "jacobodavis35",
+      "charlieether489",
+      "ur_fave.emo",
       "ez.bull.terrier.arts",
       "aidenlarch7",
       "slabjmin",
@@ -636,6 +640,41 @@
       "races": 0,
       "medals": [],
       "via": "like"
+    },
+    {
+      "handle": "iamkaelmcdonald",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": []
+    },
+    {
+      "handle": "caelanmorton431",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like",
+      "look": "2441"
+    },
+    {
+      "handle": "nagdamaahir",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "quentino111",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
+    },
+    {
+      "handle": "charlieether489",
+      "joined": "2026-11-21",
+      "races": 0,
+      "medals": [],
+      "via": "like"
     }
   ],
   "sponsorSpots": [
@@ -721,14 +760,14 @@
     }
   ],
   "syncEveryMin": 60,
-  "lastSync": "2026-11-21T08:36:30Z",
+  "lastSync": "2026-11-21T09:06:16Z",
   "claims": [
     {
       "handle": "caelanmorton431",
       "look": "2441",
       "at": "2026-11-21T08:22:10Z",
       "reel": "https://www.instagram.com/p/Df-_4FZppBC/",
-      "status": "waiting"
+      "status": "locked"
     },
     {
       "handle": "krinc_prason",
