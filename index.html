@@ -125,6 +125,7 @@
   @keyframes flash{from{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,194,66,.35)}to{border-color:var(--line);box-shadow:none}}
   @media (max-width:520px){.claim-row small.when{display:none}}
   .btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none}
+  td.pts,th.pts{color:var(--gold);font-weight:700}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
   .chip{font-size:12px;padding:4px 8px;border-radius:3px;background:var(--night-2);border:1px solid var(--line);color:var(--muted)}
   .chip.debut{color:var(--cyan);border-color:var(--cyan)}
@@ -319,9 +320,10 @@
     <div class="wrap">
       <p class="kicker">Rankings</p>
       <h2 class="px">The standings</h2>
-      <p class="sub">Gold, then silver, then bronze. Ties go to the horse with more races.</p>
+      <p class="sub">Every race scores: <b>20</b> points for a win, 15 for 2nd, 12 for 3rd, then 10, 9, 8, 7, 6, 5 and 4 down to 10th. Every other finisher gets 2, and a banana DNF still gets 1. Ties go to more wins.</p>
       <div class="tabs" role="tablist">
-        <button class="tab" role="tab" aria-selected="true" data-sort="medals">Medal table</button>
+        <button class="tab" role="tab" aria-selected="true" data-sort="points">Points</button>
+        <button class="tab" role="tab" aria-selected="false" data-sort="medals">Medal table</button>
         <button class="tab" role="tab" aria-selected="false" data-sort="wins">Most wins</button>
         <button class="tab" role="tab" aria-selected="false" data-sort="races">Most races</button>
       </div>
@@ -469,9 +471,14 @@
   const toast = msg => { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 3200); };
   const fmtDate = d => new Date(d + "T12:00:00").toLocaleDateString(undefined, { day: "numeric", month: "short" });
 
+  // Points (owner, 2026-11-21): 1st-10th score 20,15,12,10,9,8,7,6,5,4; other finishers 2; DNF 1
+  const PTS = [20, 15, 12, 10, 9, 8, 7, 6, 5, 4];
+  const racePts = r => r.dnf ? 1 : !r.place ? 0 : (PTS[r.place - 1] ?? 2);
+  let POINTS = {};
+  const tallyPoints = D => { POINTS = {}; (D.races || []).forEach(rc => (rc.results || []).forEach(r => { const k = norm(r.handle); POINTS[k] = (POINTS[k] || 0) + racePts(r); })); };
   function stats(h) {
     const m = h.medals || [];
-    return { gold: m.filter(x => x.place === 1).length, silver: m.filter(x => x.place === 2).length, bronze: m.filter(x => x.place === 3).length, races: h.races || 0 };
+    return { gold: m.filter(x => x.place === 1).length, silver: m.filter(x => x.place === 2).length, bronze: m.filter(x => x.place === 3).length, races: h.races || 0, points: POINTS[norm(h.handle)] || 0 };
   }
 
   const getJSON = u => fetch(u + (u.includes("?") ? "&" : "?") + "t=" + Date.now(), { cache: "no-store" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
@@ -610,7 +617,7 @@
         ${spriteTag(horseLook(h), 102)}
         <div>
           <h3>@${esc(h.handle)}</h3>
-          <div style="color:var(--muted)">${s.races} race${s.races === 1 ? "" : "s"} · ${last}</div>
+          <div style="color:var(--muted)"><b style="color:var(--gold)">${s.points} pts</b> · ${s.races} race${s.races === 1 ? "" : "s"} · ${last}</div>
           <div class="chips">
             ${isIn ? `<span class="chip in">Locked in for Day ${D.nextRace.day}</span>` : `<span class="chip">Sitting out Day ${D.nextRace.day}</span>`}
             ${s.gold ? `<span class="chip"><span class="m g"></span>${s.gold} gold</span>` : ""}
@@ -622,7 +629,9 @@
     });
 
     // leaderboard
+    tallyPoints(D);
     const sorters = {
+      points: (a, b) => b.points - a.points || b.gold - a.gold || b.silver - a.silver || b.races - a.races,
       medals: (a, b) => b.gold - a.gold || b.silver - a.silver || b.bronze - a.bronze || b.races - a.races,
       wins: (a, b) => b.gold - a.gold || b.races - a.races,
       races: (a, b) => b.races - a.races || b.gold - a.gold
@@ -634,15 +643,15 @@
         return;
       }
       $("#board").innerHTML = `<div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Horse</th><th class="num" aria-label="Gold"><span class="m g"></span><span class="lbl">Gold</span></th><th class="num" aria-label="Silver"><span class="m s"></span><span class="lbl">Silver</span></th><th class="num" aria-label="Bronze"><span class="m b"></span><span class="lbl">Bronze</span></th><th class="num">Races</th></tr></thead>
-        <tbody>${rows.map((r, i) => `<tr><td class="rank">${i + 1}</td><td><span class="who">${spriteTag(horseLook(r.h), 30)}@${esc(r.h.handle)}</span></td><td class="num">${r.gold}</td><td class="num">${r.silver}</td><td class="num">${r.bronze}</td><td class="num">${r.races}</td></tr>`).join("")}</tbody>
+        <thead><tr><th>#</th><th>Horse</th><th class="num pts">Pts</th><th class="num" aria-label="Gold"><span class="m g"></span><span class="lbl">Gold</span></th><th class="num" aria-label="Silver"><span class="m s"></span><span class="lbl">Silver</span></th><th class="num" aria-label="Bronze"><span class="m b"></span><span class="lbl">Bronze</span></th><th class="num">Races</th></tr></thead>
+        <tbody>${rows.map((r, i) => `<tr><td class="rank">${i + 1}</td><td><span class="who">${spriteTag(horseLook(r.h), 30)}@${esc(r.h.handle)}</span></td><td class="num pts">${r.points}</td><td class="num">${r.gold}</td><td class="num">${r.silver}</td><td class="num">${r.bronze}</td><td class="num">${r.races}</td></tr>`).join("")}</tbody>
       </table></div>`;
     }
     document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
       document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x === t));
       boardMode = t.dataset.sort; board(boardMode);
     }));
-    let boardMode = "medals";
+    let boardMode = "points";
     REBOARD = () => board(boardMode);
     board(boardMode);
 
